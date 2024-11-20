@@ -1,13 +1,20 @@
 package web.parcial.olarte.olarte_parcial.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import web.parcial.olarte.olarte_parcial.dto.ContratoDTO;
-import web.parcial.olarte.olarte_parcial.entities.Contrato;
-import web.parcial.olarte.olarte_parcial.services.ContratoService;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import web.parcial.olarte.olarte_parcial.dto.ContratoDTO;
+import web.parcial.olarte.olarte_parcial.services.ContratoService;
 
 @RestController
 @RequestMapping("/contratos")
@@ -20,14 +27,14 @@ public class ContratoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Contrato>> getAllContratos() {
-        List<Contrato> contratos = contratoService.getAllContratos();
+    public ResponseEntity<List<ContratoDTO>> getAllContratos() {
+        List<ContratoDTO> contratos = contratoService.getAllContratos();
         return ResponseEntity.ok(contratos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Contrato> getContratoById(@PathVariable Long id) {
-        Contrato contrato = contratoService.getContratoById(id);
+    public ResponseEntity<ContratoDTO> getContratoById(@PathVariable Long id) {
+        ContratoDTO contrato = contratoService.getContratoById(id);
         return ResponseEntity.ok(contrato);
     }
 

@@ -2,6 +2,7 @@ package web.parcial.olarte.olarte_parcial.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +24,17 @@ public class ContratoService {
         this.modelMapper = modelMapper;
     }
 
-    public List<Contrato> getAllContratos() {
-        return contratoRepository.findAll();
+    public List<ContratoDTO> getAllContratos() {
+        List<Contrato> contratos = contratoRepository.findAll();
+        return contratos.stream().map(contrato -> modelMapper.map(contrato, ContratoDTO.class)).collect(Collectors.toList());
     }
 
-    public Contrato getContratoById(Long id) {
+    public ContratoDTO getContratoById(Long id) {
         Optional<Contrato> optionalContrato = contratoRepository.findById(id);
         if (!optionalContrato.isPresent()) {
             throw new ContratoException("El contrato buscado no existe");
         }
-        return optionalContrato.get();
+        return modelMapper.map(optionalContrato.get(), ContratoDTO.class);
     }
 
     private Contrato checkCorrectContrato(ContratoDTO contratoDTO) {

@@ -12,6 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ContratoDTO {
+    private Long id;
     private String identificador;
     private Double valor;
     private String nombreContratante;
